@@ -25,7 +25,7 @@ jobs:
         JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
         
     - name: Download file from Artifactory
-      run: jf rt d commons-dev-generic-local/build-tests/README.md README-new.md
+      run: jf rt download commons-dev-generic-local/build-tests/README.md README-new.md
 
     - name: Append new line to README-new.md
       run: |
@@ -33,6 +33,6 @@ jobs:
 
     - name: Upload README.md to Artifactory
       run: |
-        jf rt u README-new.md commons-dev-generic-local/build-tests-new/README.md
+        jf rt upload README-new.md commons-dev-generic-local/build-tests-new/README.md
 
 
