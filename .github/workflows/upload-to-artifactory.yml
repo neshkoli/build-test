@@ -1,4 +1,4 @@
-name: Upload README to JFrog Artifactory
+name: Create dependencies
 
 on:
   push:
@@ -24,9 +24,15 @@ jobs:
         JF_USER: ${{ vars.JF_USER }}
         JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
         
+    - name: Download file from Artifactory
+      run: jf rt d commons-dev-generic-local/build-tests/README.md README-new.md
+
+    - name: Append new line to README-new.md
+      run: |
+        echo "* this is a new line" >> README-new.md
 
     - name: Upload README.md to Artifactory
       run: |
-        jf rt u README.md commons-dev-generic-local/build-tests/README.md
+        jf rt u README-new.md commons-dev-generic-local/build-tests-new/README.md
 
 
